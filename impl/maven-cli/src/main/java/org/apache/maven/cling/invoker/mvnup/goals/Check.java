@@ -16,24 +16,35 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.maven.internal.transformation.impl;
+package org.apache.maven.cling.invoker.mvnup.goals;
 
-import javax.xml.stream.XMLStreamException;
-
-import java.io.IOException;
-import java.nio.file.Path;
-
-import org.apache.maven.api.model.Model;
-import org.apache.maven.api.services.ModelBuilderException;
-import org.apache.maven.project.MavenProject;
-import org.eclipse.aether.RepositorySystemSession;
+import org.apache.maven.api.di.Inject;
+import org.apache.maven.api.di.Named;
+import org.apache.maven.api.di.Singleton;
+import org.apache.maven.cling.invoker.mvnup.UpgradeContext;
 
 /**
- * This interface is not public and the purpose is to allow easy unit testing
- * of {@link DefaultConsumerPomArtifactTransformer}.
+ * The "check" goal implementation.
  */
-interface ConsumerPomBuilder {
+@Named("check")
+@Singleton
+public class Check extends AbstractUpgradeGoal {
 
-    Model build(RepositorySystemSession session, MavenProject project, Path src)
-            throws ModelBuilderException, IOException, XMLStreamException;
+    @Inject
+    public Check(StrategyOrchestrator orchestrator) {
+        super(orchestrator);
+    }
+
+    @Override
+    protected boolean shouldSaveModifications() {
+        return false;
+    }
+
+    @Override
+    public int execute(UpgradeContext context) throws Exception {
+        context.info("Maven Upgrade Tool - Check");
+        context.println();
+
+        return super.execute(context);
+    }
 }
