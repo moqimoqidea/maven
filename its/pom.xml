@@ -248,7 +248,7 @@ under the License.
       <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter</artifactId>
-        <version>5.12.2</version>
+        <version>5.13.1</version>
       </dependency>
       <dependency>
         <groupId>org.apache.maven.plugin-tools</groupId>
@@ -352,6 +352,20 @@ under the License.
           <execution>
             <id>rat-check</id>
             <inherited>false</inherited>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <executions>
+          <!-- Skip this check: IT support contains a lot of legacy -->
+          <execution>
+            <id>ensure-no-guice-with-asm</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <phase>none</phase>
           </execution>
         </executions>
       </plugin>
